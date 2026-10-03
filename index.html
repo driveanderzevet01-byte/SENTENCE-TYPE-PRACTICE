@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Grammar Practice | Sentence Types, Conjunctions & Clauses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: #0a0c12;
+            font-family: 'Segoe UI', 'Inter', 'Noto Sans', system-ui, -apple-system, monospace;
+            color: #e3e6f0;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            max-width: 1200px;
+            width: 100%;
+            background: #11161f;
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(66, 153, 225, 0.2);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: #0f131c;
+            padding: 1.2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid #2a313e;
+        }
+
+        .title-section h1 {
+            font-size: 1.65rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .title-section p {
+            font-size: 0.85rem;
+            color: #8f9bb3;
+            margin-top: 4px;
+        }
+
+        .stats-box {
+            background: #010409;
+            padding: 0.5rem 1.4rem;
+            border-radius: 60px;
+            border: 1px solid #2d3a4e;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: monospace;
+            letter-spacing: 1px;
+            color: #facc15;
+            box-shadow: 0 0 6px rgba(250, 204, 21, 0.3);
+        }
+
+        .stats-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7e8aa8;
+            text-align: right;
+            margin-bottom: 4px;
+        }
+
+        .warning-bar {
+            background: #2c1a1f;
+            border-left: 6px solid #f97316;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.85rem;
+            color: #ffbc7a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #33222a;
+        }
+
+        .warning-count {
+            background: #00000066;
+            border-radius: 40px;
+            padding: 0.2rem 0.8rem;
+            font-weight: bold;
+            color: #ffaa66;
+        }
+
+        .questions-area {
+            padding: 1.8rem 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .question-card {
+            background: #0e121b;
+            margin-bottom: 1.2rem;
+            border-radius: 1.2rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid #232a35;
+            transition: all 0.1s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 0.85rem;
+            font-size: 1.05rem;
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .q-num {
+            background: #1f2a3a;
+            border-radius: 30px;
+            padding: 0.1rem 0.7rem;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .target-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1.05rem;
+            font-weight: 500;
+            background: #1a2a3a;
+            padding: 0.2rem 0.9rem;
+            border-radius: 28px;
+            letter-spacing: 0.5px;
+            color: #b8d4f0;
+            white-space: pre-wrap;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.6rem;
+        }
+
+        .option-radio {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1a1f2b;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            border: 1px solid #2a3342;
+            transition: 0.05s linear;
+        }
+
+        .option-radio.selected {
+            background: #1a3a5a;
+            border-color: #38bdf8;
+        }
+
+        input[type="radio"] {
+            accent-color: #38bdf8;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
+        }
+
+        .submit-section {
+            padding: 1.2rem 2rem 2rem;
+            background: #0c1019;
+            border-top: 1px solid #232a35;
+            display: flex;
+            justify-content: center;
+        }
+
+        .submit-btn {
+            background: #1a4b6b;
+            border: none;
+            padding: 0.9rem 2.8rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:hover {
+            background: #2a6b8b;
+            transform: scale(0.98);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background: #121826;
+            width: 90%;
+            max-width: 850px;
+            max-height: 85vh;
+            border-radius: 1.8rem;
+            border: 1px solid #2f3b54;
+            overflow-y: auto;
+            padding: 1.6rem;
+            box-shadow: 0 25px 40px black;
+        }
+
+        .modal-card h2 {
+            margin-bottom: 1rem;
+            color: #dddfff;
+        }
+
+        .summary-item {
+            border-bottom: 1px solid #2a3240;
+            padding: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+
+        .correct-ans {
+            color: #6fcf97;
+        }
+
+        .wrong-ans {
+            color: #f5a97f;
+        }
+
+        .close-modal {
+            background: #2e3b4e;
+            border: none;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            color: white;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a4b6b;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quizApp">
+    <div class="quiz-header">
+        <div class="title-section">
+            <h1>📘 Grammar Practice → Sentence Types, Conjunctions & Clauses</h1>
+            <p>100 questions: Multiple choice | Score = Correct × 1</p>
+        </div>
+        <div>
+            <div class="stats-label">📊 PROGRESS</div>
+            <div class="stats-box" id="progressDisplay">0 / 100</div>
+        </div>
+    </div>
+
+    <div class="warning-bar" id="warningBar">
+        ⚠️ Anti-cheat active: switching tabs/windows will be logged. 
+        <span id="warningCounterSpan">⚠️ Warning 0 / 2</span>
+        <span style="margin-left: auto; font-size:0.7rem;">🚫 split-screen & screenshot protected</span>
+    </div>
+
+    <div class="questions-area" id="questionsContainer"></div>
+
+    <div class="submit-section">
+        <button class="submit-btn" id="submitQuizBtn">✍️ SUBMIT TEST</button>
+    </div>
+</div>
+
+<div id="resultModal" class="modal-overlay">
+    <div class="modal-card">
+        <h2>📋 Submission Summary (Grammar Practice)</h2>
+        <div id="modalContent"></div>
+        <button class="close-modal" id="closeModalBtn">Close Summary</button>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // DATA from "SENTENCE TYPE PRACTICE.docx"
+    // 100 questions with 4 options each
+    // Based on Answer Key provided in the file
+    // --------------------------------------------------------------
+    const RAW_QUESTIONS = [
+        { prompt: "What is the minimum combination needed to form a clause?", options: ["A subject and an adjective", "A subject and a predicate", "A noun and a conjunction", "A verb and a conjunction"], correct: "A subject and a predicate" },
+        { prompt: "Which of the following is an independent clause?", options: ["Because she was tired", "When the rain stopped", "Although he studied hard", "She passed the exam"], correct: "She passed the exam" },
+        { prompt: "An independent clause is a clause that:", options: ["contains a subordinating conjunction", "always contains two subjects", "can stand alone as a complete sentence", "cannot express a complete thought"], correct: "can stand alone as a complete sentence" },
+        { prompt: "Which is a dependent clause?", options: ["The students went home.", "She likes coffee.", "Because I was hungry", "We went home."], correct: "Because I was hungry" },
+        { prompt: "A dependent clause is also called a:", options: ["subordinate clause", "coordinate clause", "main sentence", "complete sentence"], correct: "subordinate clause" },
+        { prompt: "Which sentence contains an independent clause?", options: ["Although it was raining", "Because I was hungry", "I made some food.", "When the class ended"], correct: "I made some food." },
+        { prompt: "Which sentence contains a dependent clause?", options: ["Tom plays football.", "We went home.", "Sarah studies every night.", "When Sarah finishes her homework, she watches TV."], correct: "When Sarah finishes her homework, she watches TV." },
+        { prompt: "Which part of the sentence is the dependent clause? Although it was late, we continued working.", options: ["we continued working", "Although it was late", "it was late, we", "continued working"], correct: "Although it was late" },
+        { prompt: "Which statement about an independent clause is TRUE?", options: ["It must begin with a subordinating conjunction.", "It cannot contain a subject.", "It expresses a complete thought.", "It must contain two verbs."], correct: "It expresses a complete thought." },
+        { prompt: "Which statement about a dependent clause is TRUE?", options: ["It cannot stand alone as a complete sentence.", "It always comes after an independent clause.", "It has no subject.", "It never contains a verb."], correct: "It cannot stand alone as a complete sentence." },
+        { prompt: "Which word commonly introduces a dependent clause?", options: ["and", "but", "or", "although"], correct: "although" },
+        { prompt: "Identify the clause type: The baby cried.", options: ["Dependent", "Independent", "Subordinating", "Relative"], correct: "Independent" },
+        { prompt: "Identify the clause type: because the baby cried", options: ["Independent", "Main", "Dependent", "Coordinate"], correct: "Dependent" },
+        { prompt: "Which sentence contains one independent clause and one dependent clause?", options: ["I slept.", "I slept because I was tired.", "I slept, and she studied.", "I slept and dreamed."], correct: "I slept because I was tired." },
+        { prompt: "Which is the best description of a clause?", options: ["A group of words containing a subject and a predicate", "Any group of words ending in a comma", "A group containing only a verb", "Any group of words containing a noun"], correct: "A group of words containing a subject and a predicate" },
+        { prompt: "Which of the following is a coordinating conjunction?", options: ["because", "and", "although", "when"], correct: "and" },
+        { prompt: "The seven coordinating conjunctions are commonly remembered using:", options: ["FANBOYS", "SWABIF", "ABCDEFG", "FANBOWS"], correct: "FANBOYS" },
+        { prompt: "In FANBOYS, the letter F represents:", options: ["for", "from", "if", "following"], correct: "for" },
+        { prompt: "Which word is NOT a coordinating conjunction?", options: ["nor", "but", "because", "yet"], correct: "because" },
+        { prompt: "Which pair contains only coordinating conjunctions?", options: ["because, although", "and, but", "when, if", "since, while"], correct: "and, but" },
+        { prompt: "In the sentence below, what kind of conjunction is and? She studied hard and she passed.", options: ["Subordinating", "Correlative", "Relative", "Coordinating"], correct: "Coordinating" },
+        { prompt: "Which conjunction usually expresses an alternative or choice?", options: ["or", "yet", "so", "for"], correct: "or" },
+        { prompt: "Which conjunction can show contrast?", options: ["so", "but", "for", "nor"], correct: "but" },
+        { prompt: "Which coordinating conjunction can introduce a result?", options: ["nor", "yet", "so", "for"], correct: "so" },
+        { prompt: "Which sentence uses a coordinating conjunction?", options: ["I stayed home because I was sick.", "Although it rained, we played.", "When she arrived, we ate.", "I was tired, but I continued."], correct: "I was tired, but I continued." },
+        { prompt: "Which conjunction means approximately \"because\" when used as a coordinating conjunction?", options: ["for", "yet", "nor", "or"], correct: "for" },
+        { prompt: "Which sentence correctly uses nor?", options: ["She doesn't like tea, nor does she like coffee.", "She doesn't like tea, nor she likes coffee.", "She doesn't like tea nor because coffee.", "She doesn't like tea, nor liking coffee."], correct: "She doesn't like tea, nor does she like coffee." },
+        { prompt: "Which coordinating conjunction connects alternatives?", options: ["yet", "or", "so", "for"], correct: "or" },
+        { prompt: "Which of the following is the correct FANBOYS list?", options: ["for, and, nor, but, or, yet, so", "for, although, nor, because, or, yet, so", "if, and, nor, but, or, while, so", "for, and, when, but, or, yet, since"], correct: "for, and, nor, but, or, yet, so" },
+        { prompt: "In this sentence, what does but do? I wanted to go, but I was too tired.", options: ["Introduces a dependent clause", "Connects two contrasting independent clauses", "Introduces a noun phrase", "Changes the sentence into a simple sentence"], correct: "Connects two contrasting independent clauses" },
+        { prompt: "Which is a subordinating conjunction?", options: ["and", "but", "because", "or"], correct: "because" },
+        { prompt: "Which word commonly introduces a reason?", options: ["because", "although", "while", "unless"], correct: "because" },
+        { prompt: "Which conjunction commonly introduces a condition?", options: ["although", "if", "because", "while"], correct: "if" },
+        { prompt: "Which conjunction commonly expresses contrast?", options: ["although", "because", "and", "so"], correct: "although" },
+        { prompt: "Which is NOT normally a subordinating conjunction?", options: ["when", "while", "and", "unless"], correct: "and" },
+        { prompt: "What does a subordinating conjunction generally do?", options: ["Joins two nouns", "Makes one clause dependent on another", "Removes the subject", "Creates a compound subject"], correct: "Makes one clause dependent on another" },
+        { prompt: "In the sentence below, which word is the subordinating conjunction? Because I was tired, I went home.", options: ["tired", "went", "because", "home"], correct: "because" },
+        { prompt: "Which sentence contains a subordinating conjunction?", options: ["I was hungry, so I ate.", "I was hungry, and I ate.", "I ate, but she didn't.", "I ate because I was hungry."], correct: "I ate because I was hungry." },
+        { prompt: "Which conjunction expresses time?", options: ["when", "but", "or", "so"], correct: "when" },
+        { prompt: "Which conjunction expresses a condition?", options: ["although", "unless", "because", "while"], correct: "unless" },
+        { prompt: "What type of conjunction is although?", options: ["Coordinating", "Subordinating", "Correlative", "Conjunctive adverb"], correct: "Subordinating" },
+        { prompt: "What type of conjunction is because?", options: ["Subordinating", "Coordinating", "Correlative", "Prepositional"], correct: "Subordinating" },
+        { prompt: "Which sentence correctly uses a subordinating conjunction?", options: ["Although I was tired, I finished my work.", "Although I was tired, and I finished my work.", "Although I was tired but I finished my work.", "Although, I was tired finished my work."], correct: "Although I was tired, I finished my work." },
+        { prompt: "Which word can introduce a dependent clause expressing time?", options: ["and", "when", "but", "nor"], correct: "when" },
+        { prompt: "Which sentence contains a subordinate/dependent clause introduced by if?", options: ["If you study, you will improve.", "You study, and you improve.", "You study, but you improve.", "You study or you improve."], correct: "If you study, you will improve." },
+        { prompt: "A simple sentence contains:", options: ["at least two independent clauses", "one independent clause", "one independent and one dependent clause", "two dependent clauses"], correct: "one independent clause" },
+        { prompt: "Which is a simple sentence?", options: ["I went home, and I slept.", "I went home because I was tired.", "I went home.", "Although I was tired, I went home."], correct: "I went home." },
+        { prompt: "A simple sentence can contain:", options: ["a compound subject", "two independent clauses", "a dependent clause", "two complete sentences"], correct: "a compound subject" },
+        { prompt: "Which is a simple sentence with a compound subject?", options: ["Tom and Sarah studied.", "Tom studied, and Sarah studied.", "Because Tom studied, Sarah passed.", "Tom studied because Sarah asked him."], correct: "Tom and Sarah studied." },
+        { prompt: "Which is a simple sentence with a compound predicate?", options: ["Maria and John laughed.", "Maria laughed and smiled.", "Maria laughed, and John smiled.", "Because Maria laughed, John smiled."], correct: "Maria laughed and smiled." },
+        { prompt: "Why is this a simple sentence? The dog barked and ran outside.", options: ["It has two independent clauses.", "It has one independent clause with a compound predicate.", "It contains a dependent clause.", "It has two subordinating conjunctions."], correct: "It has one independent clause with a compound predicate." },
+        { prompt: "Which sentence is NOT simple?", options: ["The children played.", "The children played and laughed.", "The children played, and their parents watched.", "The children played happily."], correct: "The children played, and their parents watched." },
+        { prompt: "Which sentence contains only one independent clause?", options: ["I went home, and I slept.", "I went home because I was tired.", "I went home.", "Although I was tired, I went home."], correct: "I went home." },
+        { prompt: "A simple sentence does NOT necessarily mean:", options: ["short", "grammatically complete", "containing only one verb", "containing one independent clause"], correct: "containing only one verb" },
+        { prompt: "Which sentence is simple?", options: ["Sarah opened the door and walked inside.", "Sarah opened the door, and she walked inside.", "When Sarah opened the door, she walked inside.", "Sarah opened the door because she heard a noise."], correct: "Sarah opened the door and walked inside." },
+        { prompt: "A compound sentence contains:", options: ["one independent clause only", "one dependent clause only", "at least two independent clauses", "one independent and one dependent clause"], correct: "at least two independent clauses" },
+        { prompt: "Which sentence is compound?", options: ["I studied because I had a test.", "I studied, and I passed the test.", "Although I studied, I was nervous.", "Studying every night is difficult."], correct: "I studied, and I passed the test." },
+        { prompt: "Compound sentences commonly use:", options: ["only subordinating conjunctions", "only dependent clauses", "coordinating conjunctions", "adjectives"], correct: "coordinating conjunctions" },
+        { prompt: "Which sentence is correctly punctuated as a compound sentence?", options: ["I was tired, but I continued.", "I was tired but I continued.", "I was tired; but I continued.", "I was tired: but I continued."], correct: "I was tired, but I continued." },
+        { prompt: "Which punctuation can join two independent clauses without a conjunction?", options: ["Semicolon", "Apostrophe", "Hyphen", "Parentheses"], correct: "Semicolon" },
+        { prompt: "Which sentence contains two independent clauses?", options: ["Because it was raining, we stayed home.", "We stayed home because it was raining.", "It was raining, so we stayed home.", "While it was raining, we stayed home."], correct: "It was raining, so we stayed home." },
+        { prompt: "What type of sentence is this? I wanted coffee, but the cafe was closed.", options: ["Simple", "Complex", "Compound", "Compound-complex"], correct: "Compound" },
+        { prompt: "What type of sentence is this? James cooked dinner, and Anna washed the dishes.", options: ["Simple", "Compound", "Complex", "Compound-complex"], correct: "Compound" },
+        { prompt: "Which sentence is NOT compound?", options: ["She smiled, and he waved.", "I called, but nobody answered.", "We left because it was late.", "He studied, so he passed."], correct: "We left because it was late." },
+        { prompt: "Which structure represents a compound sentence?", options: ["IC + IC", "IC + DC", "DC + IC", "IC + IC + DC"], correct: "IC + IC" },
+        { prompt: "Which sentence has two independent clauses joined by so?", options: ["It was raining, so we stayed inside.", "Because it was raining, we stayed inside.", "Although it rained, we stayed inside.", "When it rained, we stayed inside."], correct: "It was raining, so we stayed inside." },
+        { prompt: "Which conjunction can correctly join these clauses? She was tired, she continued working.", options: ["because", "although", "but", "when"], correct: "but" },
+        { prompt: "A comma is commonly used before a coordinating conjunction when it joins:", options: ["two adjectives", "two independent clauses", "two dependent clauses", "two prepositions"], correct: "two independent clauses" },
+        { prompt: "Which sentence is compound?", options: ["The movie ended, and we went home.", "After the movie ended, we went home.", "We went home after the movie ended.", "Ending the movie, we went home."], correct: "The movie ended, and we went home." },
+        { prompt: "Which sentence correctly demonstrates the compound structure?", options: ["IC, CC IC", "IC SC DC", "DC, IC", "IC because DC"], correct: "IC, CC IC" },
+        { prompt: "A complex sentence contains:", options: ["two independent clauses only", "one independent clause and at least one dependent clause", "only dependent clauses", "one independent clause with no conjunction"], correct: "one independent clause and at least one dependent clause" },
+        { prompt: "Which sentence is complex?", options: ["I stayed home because I was sick.", "I stayed home, and she visited me.", "I stayed home.", "I stayed home, but she went out."], correct: "I stayed home because I was sick." },
+        { prompt: "Which structure represents a complex sentence?", options: ["IC + IC", "DC + DC", "IC + DC", "IC + IC + DC"], correct: "IC + DC" },
+        { prompt: "What type of sentence is this? Because it was raining, we stayed inside.", options: ["Simple", "Compound", "Complex", "Compound-complex"], correct: "Complex" },
+        { prompt: "What type of sentence is this? We stayed inside because it was raining.", options: ["Compound", "Simple", "Complex", "Compound-complex"], correct: "Complex" },
+        { prompt: "Which is the dependent clause in this sentence? When the teacher arrived, the students became quiet.", options: ["the students", "became quiet", "When the teacher arrived", "the students became quiet"], correct: "When the teacher arrived" },
+        { prompt: "Which sentence contains one independent clause and one dependent clause?", options: ["She left, and I stayed.", "She left when the meeting ended.", "She left.", "She left, but I stayed."], correct: "She left when the meeting ended." },
+        { prompt: "Which sentence is complex?", options: ["Although he was tired, he finished the project.", "He was tired, and he finished the project.", "He was tired.", "He finished the project, and she helped."], correct: "Although he was tired, he finished the project." },
+        { prompt: "Which sentence begins with a dependent clause?", options: ["I went home because it was late.", "Because it was late, I went home.", "I went home, and she stayed.", "I went home."], correct: "Because it was late, I went home." },
+        { prompt: "When a dependent clause comes before the independent clause, it is commonly followed by:", options: ["a comma", "a semicolon", "a colon", "no punctuation in every case"], correct: "a comma" },
+        { prompt: "Which sentence is correctly punctuated?", options: ["Because I was tired I went home.", "Because, I was tired I went home.", "Because I was tired, I went home.", "Because I was tired; I went home."], correct: "Because I was tired, I went home." },
+        { prompt: "Which sentence contains a subordinating conjunction?", options: ["She smiled, and I laughed.", "She smiled because she was happy.", "She smiled, but I cried.", "She smiled."], correct: "She smiled because she was happy." },
+        { prompt: "Which sentence is complex rather than compound?", options: ["I went home because I was tired.", "I went home, and I slept.", "I went home, but she stayed.", "I went home; she stayed."], correct: "I went home because I was tired." },
+        { prompt: "Which of the following is a dependent clause?", options: ["although the weather improved", "the weather improved", "the weather was beautiful", "we went outside"], correct: "although the weather improved" },
+        { prompt: "Which sentence has the structure DC + IC?", options: ["I left because I was tired.", "I left, and she stayed.", "Because I was tired, I left.", "I left."], correct: "Because I was tired, I left." },
+        { prompt: "A compound-complex sentence contains:", options: ["exactly one independent clause", "at least two independent clauses and at least one dependent clause", "only dependent clauses", "two dependent clauses and no independent clause"], correct: "at least two independent clauses and at least one dependent clause" },
+        { prompt: "Which sentence is compound-complex?", options: ["I went home because I was tired.", "I went home, and I slept.", "Because I was tired, I went home, and I slept.", "I went home."], correct: "Because I was tired, I went home, and I slept." },
+        { prompt: "Which structure represents a compound-complex sentence?", options: ["IC + DC", "IC + IC", "DC + DC", "IC + IC + DC"], correct: "IC + IC + DC" },
+        { prompt: "Identify the sentence type: Although it was raining, we went outside, and we played football.", options: ["Simple", "Compound", "Complex", "Compound-complex"], correct: "Compound-complex" },
+        { prompt: "Which sentence contains two independent clauses and one dependent clause?", options: ["When the class ended, I went home.", "I went home, and I ate dinner.", "When the class ended, I went home, and I ate dinner.", "I went home."], correct: "When the class ended, I went home, and I ate dinner." },
+        { prompt: "Which sentence is compound-complex?", options: ["She studied because she had an exam.", "She studied, and she passed.", "Because she studied, she passed the exam, and she celebrated.", "She studied hard."], correct: "Because she studied, she passed the exam, and she celebrated." },
+        { prompt: "In this sentence, how many independent clauses are there? Because I was hungry, I cooked dinner, and my brother made dessert.", options: ["One", "Two", "Three", "Four"], correct: "Two" },
+        { prompt: "In the same sentence, how many dependent clauses are there? Because I was hungry, I cooked dinner, and my brother made dessert.", options: ["One", "Two", "Three", "None"], correct: "One" },
+        { prompt: "Which sentence has the pattern DC + IC + IC?", options: ["I slept because I was tired.", "Because I was tired, I slept, and my sister watched TV.", "I slept, and my sister watched TV.", "Because I was tired, I slept."], correct: "Because I was tired, I slept, and my sister watched TV." },
+        { prompt: "Which sentence is NOT compound-complex?", options: ["Although she was tired, she studied, and she passed.", "When we arrived, they ate, and we talked.", "I stayed home because I was sick.", "Because he was late, he apologized, and he left."], correct: "I stayed home because I was sick." },
+        { prompt: "Fill in the blank: A sentence with one independent clause and no dependent clause is a ______ sentence.", options: ["complex", "compound", "compound-complex", "simple"], correct: "simple" },
+        { prompt: "Fill in the blank: A sentence with two or more independent clauses and no dependent clause is a ______ sentence.", options: ["compound", "simple", "complex", "dependent"], correct: "compound" },
+        { prompt: "Fill in the blank: A sentence with one independent clause and at least one dependent clause is called a ______ sentence.", options: ["simple", "compound", "complex", "coordinate"], correct: "complex" },
+        { prompt: "Fill in the blank: A sentence with at least two independent clauses and at least one dependent clause is a ______ sentence.", options: ["simple", "compound", "complex", "compound-complex"], correct: "compound-complex" },
+        { prompt: "Analyze the sentence: Although Maya was tired, she finished her homework, and she went to bed. Which analysis is correct?", options: ["One dependent clause + one independent clause; complex", "Two independent clauses; compound", "One independent clause; simple", "One dependent clause + two independent clauses; compound-complex"], correct: "One dependent clause + two independent clauses; compound-complex" }
+    ];
+
+    // Shuffle array function (Fisher-Yates)
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    let shuffledQuestions = [];
+    let userAnswers = new Array(100).fill(null);
+    let warningCount = 0;
+    let isSubmitted = false;
+
+    const questionsContainer = document.getElementById('questionsContainer');
+    const submitBtn = document.getElementById('submitQuizBtn');
+    const modal = document.getElementById('resultModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const warningCounterSpan = document.getElementById('warningCounterSpan');
+    const progressDisplay = document.getElementById('progressDisplay');
+
+    function updateWarningUI() {
+        warningCounterSpan.innerHTML = `⚠️ Warning ${warningCount} / 2`;
+        if (warningCount >= 2) {
+            warningCounterSpan.style.color = "#ffaa66";
+            warningCounterSpan.style.fontWeight = "bold";
+        }
+        if (warningCount >= 3) {
+            warningCounterSpan.innerHTML = `⛔ Force submission triggered`;
+        }
+    }
+
+    function updateProgress() {
+        const answered = userAnswers.filter(a => a !== null).length;
+        progressDisplay.textContent = `${answered} / 100`;
+    }
+
+    function disableQuizInputs() {
+        const allRadios = document.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(radio => radio.disabled = true);
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.6';
+        submitBtn.style.cursor = 'default';
+    }
+
+    function forceAutoSubmit(reason) {
+        if (isSubmitted) return;
+        alert(`⚠️ ${reason} The quiz will be submitted now.`);
+        submitQuiz(true);
+    }
+
+    function renderQuestions() {
+        questionsContainer.innerHTML = '';
+        shuffledQuestions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            const selectedVal = userAnswers[idx] || '';
+            card.innerHTML = `
+                <div class="question-text">
+                    <span class="q-num">Q${idx+1}</span>
+                    <span class="target-text">${q.prompt}</span>
+                </div>
+                <div class="options" data-qidx="${idx}">
+                    ${q.shuffledOptions.map(opt => `
+                        <div class="option-radio ${selectedVal === opt ? 'selected' : ''}" data-opt="${opt}">
+                            <input type="radio" name="q${idx}" value="${opt}" id="q${idx}_${opt.replace(/\s/g, '_').replace(/\//g, '_').replace(/"/g, '')}" ${selectedVal === opt ? 'checked' : ''}>
+                            <label for="q${idx}_${opt.replace(/\s/g, '_').replace(/\//g, '_').replace(/"/g, '')}">${opt}</label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            questionsContainer.appendChild(card);
+            const radioInputs = card.querySelectorAll('input[type="radio"]');
+            radioInputs.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const chosenValue = e.target.value;
+                    userAnswers[idx] = chosenValue;
+                    const optsDivs = card.querySelectorAll('.option-radio');
+                    optsDivs.forEach(div => {
+                        const optVal = div.getAttribute('data-opt');
+                        if (optVal === chosenValue) div.classList.add('selected');
+                        else div.classList.remove('selected');
+                    });
+                    updateProgress();
+                });
+            });
+        });
+        updateProgress();
+    }
+
+    function computeScoreAndSummary() {
+        let correctCount = 0;
+        const details = [];
+        for (let i = 0; i < shuffledQuestions.length; i++) {
+            const q = shuffledQuestions[i];
+            const userChoice = userAnswers[i];
+            const isCorrect = (userChoice === q.correct);
+            if (isCorrect) correctCount++;
+            details.push({
+                idx: i+1,
+                prompt: q.prompt,
+                userAnswer: userChoice || '(not answered)',
+                correctAnswer: q.correct,
+                isCorrect: isCorrect
+            });
+        }
+        const totalScore = correctCount;
+        return { correctCount, totalScore, details };
+    }
+
+    function submitQuiz(isForced = false) {
+        if (isSubmitted) return;
+        isSubmitted = true;
+        const { correctCount, totalScore, details } = computeScoreAndSummary();
+        let summaryHtml = `<div style="margin-bottom: 12px;"><strong>✅ Score: ${totalScore} / 100</strong> (${correctCount} correct answers out of 100)</div>`;
+        summaryHtml += `<div style="font-size:0.85rem; margin-bottom: 16px;">📊 ${correctCount} / 100 correct answers</div>`;
+        summaryHtml += `<div style="max-height: 400px; overflow-y: auto;">`;
+        details.forEach(d => {
+            const statusIcon = d.isCorrect ? '✔️' : '❌';
+            const userShow = d.userAnswer || '—';
+            const colorClass = d.isCorrect ? 'correct-ans' : 'wrong-ans';
+            summaryHtml += `
+                <div class="summary-item">
+                    <strong>${d.idx}.</strong> ${d.prompt}<br>
+                    <span>Your: <span class="${colorClass}">${userShow}</span></span> &nbsp; | &nbsp;
+                    Correct: <strong>${d.correctAnswer}</strong> ${statusIcon}
+                </div>
+            `;
+        });
+        summaryHtml += `</div><p style="margin-top:12px;">*Scoring: each correct = 1 point. Max 100.</p>`;
+        modalContent.innerHTML = summaryHtml;
+        modal.classList.add('active');
+        disableQuizInputs();
+    }
+
+    function initQuiz() {
+        // Shuffle questions first
+        const shuffledRaw = shuffleArray([...RAW_QUESTIONS]);
+        // For each question, shuffle its options
+        shuffledQuestions = shuffledRaw.map(q => {
+            const shuffled = shuffleArray([...q.options]);
+            return {
+                prompt: q.prompt,
+                shuffledOptions: shuffled,
+                correct: q.correct
+            };
+        });
+        userAnswers.fill(null);
+        warningCount = 0;
+        isSubmitted = false;
+        updateWarningUI();
+        renderQuestions();
+    }
+
+    // Anti-cheat handlers
+    function handleVisibilityChange() {
+        if (isSubmitted) return;
+        if (document.hidden) {
+            warningCount++;
+            updateWarningUI();
+            if (warningCount <= 2) alert(`⚠️ WARNING ${warningCount}/2: Do not switch tabs/windows. Further violation forces submission.`);
+            if (warningCount >= 3) forceAutoSubmit("Tab switching violation.");
+        }
+    }
+
+    let splitGiven = false;
+    function detectSplitScreen() {
+        if (isSubmitted) return;
+        const screenW = window.screen.width;
+        const winW = window.outerWidth;
+        if (winW < screenW * 0.75 && winW > 100 && !splitGiven) {
+            splitGiven = true;
+            warningCount++;
+            updateWarningUI();
+            alert("⚠️ Split screen detected! Warning added.");
+            if (warningCount >= 3) forceAutoSubmit("Split screen limit.");
+        }
+    }
+
+    function antiScreenshot(e) {
+        if (isSubmitted) return;
+        if (e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'p') || (e.ctrlKey && e.shiftKey && (e.key === 'S' || e.key === 's'))) {
+            e.preventDefault();
+            warningCount++;
+            updateWarningUI();
+            alert(`⚠️ Screenshot attempt! Warning ${warningCount}/2`);
+            if (warningCount >= 3) forceAutoSubmit("Screenshot violation.");
+            return false;
+        }
+        if (e.type === 'contextmenu') {
+            e.preventDefault();
+            warningCount++;
+            updateWarningUI();
+            alert("Right-click disabled. Warning added.");
+            if (warningCount >= 3) forceAutoSubmit("Context menu abuse.");
+            return false;
+        }
+    }
+
+    function preventDevTools(e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault();
+            warningCount++;
+            updateWarningUI();
+            alert("DevTools blocked. Warning " + warningCount + "/2");
+            if (warningCount >= 3) forceAutoSubmit("DevTools usage.");
+            return false;
+        }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('resize', detectSplitScreen);
+    window.addEventListener('keydown', antiScreenshot);
+    window.addEventListener('contextmenu', antiScreenshot);
+    document.addEventListener('keydown', preventDevTools);
+    document.addEventListener('copy', (e) => { e.preventDefault(); warningCount++; updateWarningUI(); alert("Copy disabled."); if(warningCount>=3) forceAutoSubmit("Copy attempt."); });
+    document.addEventListener('cut', (e) => { e.preventDefault(); warningCount++; updateWarningUI(); if(warningCount>=3) forceAutoSubmit(); });
+    document.addEventListener('paste', (e) => { e.preventDefault(); warningCount++; updateWarningUI(); if(warningCount>=3) forceAutoSubmit(); });
+
+    submitBtn.addEventListener('click', () => {
+        if (isSubmitted) return;
+        const confirmSubmit = confirm("Are you sure you want to submit your answers? You cannot change after submission.");
+        if (confirmSubmit) submitQuiz(false);
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    initQuiz();
+</script>
+</body>
+</html>
